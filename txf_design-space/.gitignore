@@ -1,0 +1,7 @@
+**.pyc
+**/*.ipynb_checkpoints/
+**.DS_Store
+./models/
+**.out
+**temp.json
+flexibert/tests/

@@ -1,0 +1,43 @@
+# Design space for testing purposes
+
+datasets:
+  - CoLA
+  - SST-2
+  - MRPC
+  - STS-B
+  - QQP
+  - MNLI-mm
+  - QNLI
+  - RTE
+  - WNLI
+
+architecture:
+  hidden_size:
+    - 128
+    - 256
+  num_heads:
+    - 2
+    - 4
+  encoder_layers:
+    - 2
+    - 4
+  operation_types:
+    - sa
+    - l
+    - c
+  number_of_feed-forward_stacks:
+    - 1
+    - 3
+  feed-forward_hidden:
+    - 512
+    - 1024
+  operation_parameters:
+    sa:
+      - sdp
+      - wma
+    l:
+      - dft
+      - dct
+    c:
+      - 5
+      - 9

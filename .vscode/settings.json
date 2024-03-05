@@ -1,0 +1,7 @@
+{
+    "python.analysis.extraPaths": [
+        "./energy_profiler/tests",
+        "./energy_profiler/utils",
+        "./txf_design-space/transformers/src"
+    ]
+}
