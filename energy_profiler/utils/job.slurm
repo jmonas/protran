@@ -13,6 +13,6 @@
 
 module purge
 module load anaconda3/2020.7
-conda activate txf_design-space
+conda activate RADD
 
 python energy_vis.py 
