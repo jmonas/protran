@@ -13,6 +13,6 @@
 
 module purge
 module load anaconda3/2020.7
-conda activate RADD
+conda activate LLM_MA
 
 python energy_vis.py 
