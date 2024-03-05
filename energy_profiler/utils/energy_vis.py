@@ -20,10 +20,10 @@ import torchvision.datasets as datasets
 from torchvision.models import vit_b_16
 from torch.utils.data import DataLoader
 
-from run_glue import main as run_glue
-# try:
-from run_glue_onnx import main as run_glue_onnx
-# except:
+# from run_glue import main as run_glue
+# # try:
+# from run_glue_onnx import main as run_glue_onnx
+# # except:
     # print('Could not import ONNX library')
 
 
