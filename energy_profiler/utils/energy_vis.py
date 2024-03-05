@@ -133,7 +133,9 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
             print("i am a gpu")
             # We assume only one GPU is avilable. Else, use: os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             with torch.no_grad():
+                print("lets get it started")
                 for images, _ in data_loader:
+                    print("lets narrow it down")
                     images = images.to('cuda')
                     print("len of images: ", len(images))
                     output = model(images)
