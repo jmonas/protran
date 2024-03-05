@@ -128,7 +128,9 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
 
     start_time = time.time()
     for i in range(runs):
+        print("run: ",i)
         if device == 'gpu':
+            print("i am a gpu")
             # We assume only one GPU is avilable. Else, use: os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             with torch.no_grad():
                 for images, _ in data_loader:
