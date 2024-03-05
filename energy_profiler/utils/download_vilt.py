@@ -19,6 +19,8 @@ if not os.path.exists(directory):
 
 # Initialize the model with pretrained weights
 model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa", cache_dir=".cache")
+processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa", cache_dir=".cache")
+
 
 # Save the model's state dictionary
 # torch.save(model.state_dict(), model_path)
