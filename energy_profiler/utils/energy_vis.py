@@ -19,7 +19,9 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from torchvision.models import vit_b_16
 from torch.utils.data import DataLoader
+from datetime import datetime
 
+# Format the current time as "YYYY-MM-DD_HH-MM-SS"
 # Define the directory path
 # from run_glue import main as run_glue
 # # try:
@@ -275,17 +277,19 @@ def get_measures(device: str,
 
         # ax1.set_title(f'Model: BERT-Tiny | Task: {task} | No. sequences: {num_sequences} \n Energy: {energy/runs : 0.2f}J/run | Runtime: {eval_metrics["eval_runtime"]/runs : 0.2f}s/run')
     print("Dump results")
-    plots_directory = 'plots'
-    if not os.path.exists(plots_directory):
-        os.makedirs(plots_directory)
+    timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+
+    results_directory = f'results/{timestamp}'
+    if not os.path.exists(results_directory):
+        os.makedirs(results_directory)
     if debug: 
-        plt.savefig(os.path.join(plots_directory, 'power_results.pdf'), bbox_inches='tight')
+        plt.savefig(os.path.join(results_directory, 'power_results.pdf'), bbox_inches='tight')
         print(f'Evaluation Accuracy (%): {eval_metrics["eval_accuracy"]*100}. Evaluation Runtime (s/run): {eval_metrics["eval_runtime"]/runs}')
 
-    json.dump(power_metrics, open(os.path.join(model_path, 'power_metrics.json'), 'w+'))
+    json.dump(power_metrics, open(os.path.join(results_directory, 'power_metrics.json'), 'w+'))
 
     protran_results = {'latency': eval_metrics["eval_runtime"]/runs/num_sequences, 'energy': energy/runs/num_sequences, 'peak_power': peak_power}
-    json.dump(protran_results, open(os.path.join(model_path, 'protran_results.json'), 'w+'))
+    json.dump(protran_results, open(os.path.join(results_directory, 'protran_results.json'), 'w+'))
 
     return protran_results
 
