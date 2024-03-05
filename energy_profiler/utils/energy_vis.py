@@ -277,4 +277,4 @@ def get_measures(device: str,
 
 
 
-get_measures("gpu", 32, 10, )
+get_measures("gpu","/scratch/gpfs/jmonas/thesis/model_weights.pth", 32, 10)
