@@ -28,8 +28,9 @@ processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa", cac
 # print(f'Model weights saved to {model_path}')
 
 
-# # Load the VQAv2 dataset
-# dataset = load_dataset("HuggingFaceM4/VQAv2", split='train[:5000]')
-# dataset.to_parquet(data_path)
-# # Access the dataset
-# print(f'Data saved to {data_path}')
+# Load the VQAv2 dataset
+dataset = load_dataset("HuggingFaceM4/VQAv2", split='train[:5000]')
+print(dataset.keys())
+dataset.to_parquet(data_path)
+# Access the dataset
+print(f'Data saved to {data_path}')
