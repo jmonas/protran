@@ -20,6 +20,7 @@ import torchvision.datasets as datasets
 from torchvision.models import vit_b_16
 from torch.utils.data import DataLoader
 
+# Define the directory path
 # from run_glue import main as run_glue
 # # try:
 # from run_glue_onnx import main as run_glue_onnx
@@ -274,8 +275,11 @@ def get_measures(device: str,
 
         # ax1.set_title(f'Model: BERT-Tiny | Task: {task} | No. sequences: {num_sequences} \n Energy: {energy/runs : 0.2f}J/run | Runtime: {eval_metrics["eval_runtime"]/runs : 0.2f}s/run')
     print("Dump results")
+    plots_directory = 'plots'
+    if not os.path.exists(plots_directory):
+        os.makedirs(plots_directory)
     if debug: 
-        plt.savefig(os.path.join(model_path, 'power_results.pdf'), bbox_inches='tight')
+        plt.savefig(os.path.join(plots_directory, 'power_results.pdf'), bbox_inches='tight')
         print(f'Evaluation Accuracy (%): {eval_metrics["eval_accuracy"]*100}. Evaluation Runtime (s/run): {eval_metrics["eval_runtime"]/runs}')
 
     json.dump(power_metrics, open(os.path.join(model_path, 'power_metrics.json'), 'w+'))
@@ -294,4 +298,4 @@ def get_measures(device: str,
 
 
 
-get_measures("gpu","/scratch/gpfs/jmonas/thesis/model_weights.pth", 32, 10)
+print(get_measures("gpu","/scratch/gpfs/jmonas/thesis/model_weights.pth", 32, 10))
