@@ -32,5 +32,6 @@ processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa", cac
 dataset = load_dataset("HuggingFaceM4/VQAv2", split='train[:5000]')
 print(dataset[0])
 dataset.to_parquet(data_path)
+print(model(dataset[0]))
 # Access the dataset
 print(f'Data saved to {data_path}')
