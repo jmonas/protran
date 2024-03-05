@@ -75,7 +75,7 @@ def get_power(device: str = 'gpu', debug: bool = True):
     
 
 
-def run_inference(queue, device: str, batch_size: int, runs: int, model_path: str):
+def run_inference(queue, device: str, batch_size: int, runs: int, model_path: str, max_batches = 10):
     """Run inference of given model on the given GLUE task
     
     Args:
@@ -129,7 +129,6 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
 
     print("begin main inference----")
 
-    max_batches = 10
     start_time = time.time()
     for i in range(runs):
         print("run: ",i)
@@ -162,7 +161,8 @@ def get_measures(device: str,
     model_path: str, 
     batch_size: int, 
     runs: int, 
-    debug: bool = True):
+    debug: bool = True,
+    max_batches: int = 10):
     """Get hardware performance measures - latency, energy, and peak power consumption per run of inference on the given task
     
     Args:
@@ -182,7 +182,7 @@ def get_measures(device: str,
     vit_queue = mp.Queue()
 
     # Get process
-    vit_process = mp.Process(target=run_inference, args=(vit_queue, device, batch_size, runs, model_path))
+    vit_process = mp.Process(target=run_inference, args=(vit_queue, device, batch_size, runs, model_path, max_batches))
 
     start_time = time.time()
     power_metrics = []
@@ -288,7 +288,7 @@ def get_measures(device: str,
 
     json.dump(power_metrics, open(os.path.join(results_directory, 'power_metrics.json'), 'w+'))
 
-    protran_results = {'latency': eval_metrics["eval_runtime"]/runs/num_sequences, 'energy': energy/runs/num_sequences, 'peak_power': peak_power}
+    protran_results = {'latency': eval_metrics["eval_runtime"]/runs/max_batches/batch_size, 'energy': energy/runs/max_batches/batch_size, 'peak_power': peak_power}
     json.dump(protran_results, open(os.path.join(results_directory, 'protran_results.json'), 'w+'))
 
     return protran_results
