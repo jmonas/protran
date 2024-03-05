@@ -88,7 +88,7 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
     Returns:
         dict: evaluation metrics
     """
-    print("INFERENCE START----")
+    print("INFERENCE BLOCK----")
 
     # Define the image transformations for preprocessing
     preprocess = transforms.Compose([
@@ -97,6 +97,7 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
         transforms.ToTensor(),  # Convert the image to a PyTorch tensor
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # Normalize pixel values (ImageNet mean and std)
     ])
+    print("Download imagenet----")
 
     # Load the ImageNet dataset from the local directory with transformations applied
     imagenet_dataset = datasets.ImageNet('/scratch/gpfs/DATASETS/imagenet/ilsvrc_2012_classification_localization', transform=preprocess)
@@ -115,11 +116,15 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
     model = model.to('cuda')
     model.eval()  # Set the model to evaluation mode
 
+    print("warm up----")
+
     # Warm-up
     for _ in range(50):
         inputs = torch.randn(1, 3, 224, 224).to('cuda')
         with torch.no_grad():
             model(inputs)
+
+    print("being main inference----")
 
     start_time = time.time()
     for i in range(runs):
