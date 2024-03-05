@@ -53,8 +53,10 @@ def get_power(device: str = 'gpu', debug: bool = True):
         power_stdout = subprocess.check_output(
             f'nvidia-smi --query --display=POWER --id=0', # Assuming GPU-id to be 0 for now
             shell=True, text=True)
-
+        
+        print(power_stdout)
         power_stdout = power_stdout.split('\n')
+        
         for line in power_stdout:
             if 'Draw' in line.split(): gpu_power = float(line.split()[-2])
 
