@@ -9,6 +9,7 @@
 #SBATCH --time=72:00:00                     # total run time limit (HH:MM:SS)
 #SBATCH --mail-type=all                     # send email
 #SBATCH --mail-user=jmonas@princeton.edu
+#SBATCH --partition=mig
 
 module purge
 module load anaconda3/2020.7
