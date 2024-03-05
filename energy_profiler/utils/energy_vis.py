@@ -88,7 +88,7 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
     Returns:
         dict: evaluation metrics
     """
-
+    print("INFERENCE START----")
 
     # Define the image transformations for preprocessing
     preprocess = transforms.Compose([
@@ -185,6 +185,7 @@ def get_measures(device: str,
             time.sleep(0.2)
 
     # Start inference of of the given model for 'runs' runs
+    print("Start Process")
     vit_process.start()
 
 
