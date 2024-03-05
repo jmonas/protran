@@ -7,7 +7,7 @@ from datasets import load_dataset
 
 # Define the path where you want to save the model weights
 model_path = '/scratch/gpfs/jmonas/thesis/vilt/model_weights.pth'
-data_path = '/scratch/gpfs/jmonas/thesis/vilt/data/'
+data_path = '/scratch/gpfs/jmonas/thesis/vilt/data/vilt_dataset.parquet'
 
 directory = os.path.dirname(model_path)
 if not os.path.exists(directory):
@@ -27,7 +27,7 @@ print(f'Model weights saved to {model_path}')
 
 
 # Load the VQAv2 dataset
-dataset = load_dataset("HuggingFaceM4/VQAv2", split='train')
+dataset = load_dataset("HuggingFaceM4/VQAv2", split='train[:5000]')
 dataset.to_parquet(data_path)
 # Access the dataset
 print(f'Data saved to {data_path}')
