@@ -60,11 +60,14 @@ def get_power(device: str = 'gpu', debug: bool = True):
         for line in power_stdout:
             if 'Draw' in line.split():
                 if line.split()[-2] != 'N/A':
-                    print(line.split()[-2])
-                    gpu_power = float(line.split()[-2])
+                    try:
+                        float(line.split()[-2])
+                        gpu_power = float(line.split()[-2])
+                    except:
+                        continue
 
         if debug: print(f'GPU Power: {gpu_power : 0.02f} W')
-
+        print('gpu:', gpu_power * 1000)
         return {'gpu': gpu_power * 1000}
     
 
