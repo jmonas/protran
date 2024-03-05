@@ -6,7 +6,6 @@ sys.path.append('../../txf_design-space/transformers/src/transformers')
 
 import json
 import time
-import torch
 import shlex
 import shutil
 import platform

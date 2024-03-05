@@ -12,7 +12,8 @@
 #SBATCH --partition=mig
 
 module purge
-module load anaconda3/2020.7
+module load cudnn/cuda-11.x/8.2.0
+module load anaconda3/2023.9
 conda activate LLM_MA
 
 python energy_vis.py 
