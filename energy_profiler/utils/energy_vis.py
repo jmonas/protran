@@ -126,18 +126,17 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
 
     print("begin main inference----")
 
+    max_batches = 10
     start_time = time.time()
     for i in range(runs):
         print("run: ",i)
         if device == 'gpu':
-            print("i am a gpu")
             # We assume only one GPU is avilable. Else, use: os.environ['CUDA_VISIBLE_DEVICES'] = '0'
             with torch.no_grad():
-                print("lets get it started")
-                for images, _ in data_loader:
-                    print("lets narrow it down")
+                for j, (images, _) in enumerate(data_loader):
+                    if j >= max_batches:
+                            break  # Stop after processing max_batches
                     images = images.to('cuda')
-                    print("len of images: ", len(images))
                     output = model(images)
                     print("OUTPUT:")
                     print(output)
