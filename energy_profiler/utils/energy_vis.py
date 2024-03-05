@@ -124,7 +124,7 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
         with torch.no_grad():
             model(inputs)
 
-    print("being main inference----")
+    print("begin main inference----")
 
     start_time = time.time()
     for i in range(runs):
@@ -133,6 +133,7 @@ def run_inference(queue, device: str, batch_size: int, runs: int, model_path: st
             with torch.no_grad():
                 for images, _ in data_loader:
                     images = images.to('cuda')
+                    print("len of images: ", len(images))
                     output = model(images)
                     print("OUTPUT:")
                     print(output)
